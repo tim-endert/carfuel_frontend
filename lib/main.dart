@@ -42,10 +42,16 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = ColorScheme.fromSeed(
+      brightness: MediaQuery.platformBrightnessOf(context),
+      seedColor: Colors.indigo,
+    );
+
     return MaterialApp(
       title: 'CarFuel',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        snackBarTheme: SnackBarThemeData(backgroundColor: colorScheme.primary),
+        colorScheme: colorScheme,
         useMaterial3: true,
       ),
       routes: {

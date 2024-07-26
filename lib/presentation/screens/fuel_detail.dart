@@ -42,9 +42,11 @@ class FuelDetailScreen extends StatelessWidget {
             context.read<FuelStationOverviewBloc>().add(FetchFuelStations());
             Navigator.popUntil(context, ModalRoute.withName("/"));
 
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Successfully created'),
-            ));
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Success'),
+              ),
+            );
           }
         },
         child: CustomScrollView(

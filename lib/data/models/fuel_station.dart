@@ -1,26 +1,27 @@
 import 'package:carfuel_frontend/data/models/station_pump.dart';
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'fuel_station.g.dart';
 
 @JsonSerializable()
-class FuelStation {
+class FuelStation extends Equatable {
   @JsonKey(name: "id")
-  int id;
+  final int id;
   @JsonKey(name: "name")
-  String name;
+  final String name;
   @JsonKey(name: "address")
-  String address;
+  final String address;
   @JsonKey(name: "city")
-  String city;
+  final String city;
   @JsonKey(name: "latitude")
-  double latitude;
+  final double latitude;
   @JsonKey(name: "longitude")
-  double longitude;
+  final double longitude;
   @JsonKey(name: "pumps")
-  List<StationPump>? pumps;
+  final List<StationPump>? pumps;
 
-  FuelStation({
+  const FuelStation({
     required this.id,
     required this.name,
     required this.address,
@@ -32,6 +33,9 @@ class FuelStation {
 
   factory FuelStation.fromJson(Map<String, dynamic> json) =>
       _$FuelStationFromJson(json);
+
+  @override
+  List<Object?> get props => [id, name, address, city, latitude, longitude];
 
   Map<String, dynamic> toJson() => _$FuelStationToJson(this);
 }

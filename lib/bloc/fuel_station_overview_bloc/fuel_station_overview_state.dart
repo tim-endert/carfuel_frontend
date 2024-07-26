@@ -2,24 +2,29 @@ part of 'fuel_station_overview_bloc.dart';
 
 enum FuelStationStatus { initial, loading, loaded, failure }
 
-class FuelStationOverviewState {
+class FuelStationOverviewState extends Equatable {
   const FuelStationOverviewState({
     this.status = FuelStationStatus.initial,
     this.fuelStations = const [],
+    this.errorMessage,
   });
-
-  FuelStationOverviewState copyWith({
-    FuelStationStatus Function()? status,
-    List<FuelStation> Function()? fuelStations,
-  }) {
-    return FuelStationOverviewState(
-      status: status != null ? status() : this.status,
-      fuelStations: fuelStations != null ? fuelStations() : this.fuelStations,
-    );
-  }
 
   final List<FuelStation> fuelStations;
   final FuelStationStatus status;
+  final String? errorMessage;
 
-  List<Object?> get props => [status, fuelStations];
+  FuelStationOverviewState copyWith({
+    FuelStationStatus? status,
+    List<FuelStation>? fuelStations,
+    String? errorMessage,
+  }) {
+    return FuelStationOverviewState(
+      status: status ?? this.status,
+      fuelStations: fuelStations ?? this.fuelStations,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
+
+  @override
+  List<Object?> get props => [status, fuelStations, errorMessage];
 }

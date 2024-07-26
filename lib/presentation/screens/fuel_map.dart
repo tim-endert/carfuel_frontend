@@ -64,9 +64,9 @@ class FuelMapScreen extends StatelessWidget {
                     .toList(),
               );
             case FuelStationStatus.failure:
-              return const Center(
+              return Center(
                   child: Text(
-                "Unfortunately, we have problems accessing the server.",
+                "Unfortunately, we have problems accessing the server. ${state.errorMessage}",
               ));
           }
         },

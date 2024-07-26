@@ -16,9 +16,9 @@ class FuelStationRepository {
             apiResponse.data.map((model) => FuelStation.fromJson(model)));
 
         return stations;
-      } else {
-        throw "Error loading stations";
       }
+
+      throw "Error loading stations";
     } catch (e) {
       rethrow;
     }
@@ -38,9 +38,9 @@ class FuelStationRepository {
 
       if (apiResponse.statusCode == 200) {
         return;
-      } else {
-        throw "Error creating station";
       }
+
+      throw "Error creating station";
     } catch (e) {
       rethrow;
     }
@@ -54,9 +54,9 @@ class FuelStationRepository {
 
       if (apiResponse.statusCode == 200) {
         return;
-      } else {
-        throw "Error removing station";
       }
+
+      throw "Error removing station";
     } catch (e) {
       rethrow;
     }
@@ -65,12 +65,22 @@ class FuelStationRepository {
   updateFuelStation(
     int stationId,
     Map<String, dynamic> stationData,
-  ) {
-    final transformedStationData =
-        DataTransformers.transformStationFormData(stationData);
+  ) async {
+    try {
+      final transformedStationData =
+          DataTransformers.transformStationFormData(stationData);
 
-    DataProvider.updateRequest(
-        endpoint: "${constants.HOST}/stations/$stationId",
-        data: transformedStationData);
+      final apiResponse = await DataProvider.updateRequest(
+          endpoint: "${constants.HOST}/stations/$stationId",
+          data: transformedStationData);
+
+      if (apiResponse.statusCode == 200) {
+        return;
+      }
+
+      throw "Error updating station";
+    } catch (e) {
+      rethrow;
+    }
   }
 }

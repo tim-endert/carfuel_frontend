@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:carfuel_frontend/data/repository/fuel_station_repository.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -19,8 +20,8 @@ class FuelStationDetailBloc
         await fuelStationRepository.removeFuelStation(event.stationId);
 
         emit(FuelStationDetailSuccess());
-      } catch (e) {
-        emit(FuelStationDetailFailure(errorMessage: e.toString()));
+      } on DioException catch (e) {
+        emit(FuelStationDetailFailure(errorMessage: e.response?.data));
       }
     });
     on<FuelStationCreateRequested>((event, emit) async {
@@ -30,8 +31,8 @@ class FuelStationDetailBloc
         await fuelStationRepository.createFuelStation(event.stationData);
 
         emit(FuelStationDetailSuccess());
-      } catch (e) {
-        emit(FuelStationDetailFailure(errorMessage: e.toString()));
+      } on DioException catch (e) {
+        emit(FuelStationDetailFailure(errorMessage: e.response?.data));
       }
     });
     on<FuelStationUpdateRequested>((event, emit) async {
@@ -42,8 +43,8 @@ class FuelStationDetailBloc
             event.stationId, event.stationData);
 
         emit(FuelStationDetailSuccess());
-      } catch (e) {
-        emit(FuelStationDetailFailure(errorMessage: e.toString()));
+      } on DioException catch (e) {
+        emit(FuelStationDetailFailure(errorMessage: e.response?.data));
       }
     });
   }
